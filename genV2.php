@@ -40,7 +40,7 @@ private $operations = array('+', '*', '-', '/');
 		for($i = 0; $i < (sizeof($this->seed)-1); $i++) { echo "<b>".$this->seed[$i]."</b>'s ,"; }
 		echo "</p>";
 		
-		//This lope populates the chromosomes with initial values. 
+		//This loop populates the chromosomes with initial values. 
 		// Also sets default fitness to 0, and preserved status to false.
 		for($i = 0; $i < $this->numC; $i++) {
 			$this->chromo[$i] = array();
@@ -51,9 +51,8 @@ private $operations = array('+', '*', '-', '/');
 		
 		//The main loop of the algorithm, it runs for generation number of times.
 		for($x = 0; $x < $this->gen; $x++){
-			//Write to status file, so we can visually show how much is done in the GUI.
 			
-			//Cycle through each chromosome calculate its fitness, mutate it, and recalculate its fitness.
+			//Cycle through each chromosome; calculate its fitness, mutate it, and recalculate its fitness.
 			for($i = 0; $i < sizeof($this->chromo); $i++) {
 				$this->fitness($i);
 				$this->mutate($i);
@@ -69,7 +68,7 @@ private $operations = array('+', '*', '-', '/');
 		}
 		
 		//Lets find the overall best fitness.
-		//Cycle through each chromosome find its fitness and keep track of the biggest. 
+		//Cycle through each chromosome, find its fitness, and keep track of the biggest. 
 		$mostFit = 0;
 		for($i = 0; $i < sizeof($this->chromo); $i++) {
 			$mostFit = ($this->fitness($i) > $this->fitness($mostFit)) ? $i : $mostFit;
@@ -78,9 +77,9 @@ private $operations = array('+', '*', '-', '/');
 		$this->printIt($mostFit);
 	}
 	
-	//populate(int) - Populate takes in an index and populate the gene array at that index.
+	//populate(int) - Populate takes in an index and populates the gene array at that index.
 	// returns void.
-	//Populates each chromosome randomly, based on what availible in the seeds, and operations arrays.
+	//Populates each chromosome randomly, based on what is availible in the seeds, and operations arrays.
 	private function populate($x) {
 		$added = 0;
 		
@@ -89,7 +88,7 @@ private $operations = array('+', '*', '-', '/');
 		//we only loop for ($this->rep/2), we also subtract 1 since its 0 indexed.
 		for($i = 0; $i < (($this->rep/2-1)); $i++){
 			//Make a 50/50 choice to add anything or not
-			//if rand returns 0, we essentialy adding nothing to the gene this iteration.
+			//if rand returns 0, we are essentialy adding nothing to the gene this iteration.
 			if(rand(0,1) == 1) {
 				//If we are adding the first element, it must be a number.
 				if($added != 1){
@@ -117,7 +116,7 @@ private $operations = array('+', '*', '-', '/');
 	public function fitness($x) {
 		//Reset the fitness to zero, since we dont yet know what it is.
 		$this->fitness[$x] = 0;
-		//Turn the array into a string, so we can evulate it.
+		//Turn the array into a string, so we can evaluate it.
 		$equation = implode('',$this->chromo[$x]);
 		//Add a return statement so the eval returns an answer.
 		$equation = "return ".$equation.";";
@@ -154,7 +153,7 @@ private $operations = array('+', '*', '-', '/');
 	
 	//mutate(int) - Mutates the gene at the (index) in the chromosomes array.
 	//returns - void
-	//The Mutating function, accepets an index and mutates the gene at the index.
+	//The Mutating function, accepts an index and mutates the gene at the index.
 	public function mutate($x) {
 	
 		//if the gene at that index is marked as preserved we exit, and leave it unchanged.
@@ -173,19 +172,18 @@ private $operations = array('+', '*', '-', '/');
 			//Remove elements from the gene.
 			//If the current size of the gene is greater than 3 we can do a mutation of this type.
 			case 0: if(sizeof($this->chromo[$x]) > 3) { 
-				//If the desired spot to mutate is at the end of the string, we have to remove it and the one before.
+				//If the desired spot to mutate is at the end of the string, we have to remove it 
+				//and the one before.
 				if($spot == (sizeof($this->chromo[$x])-1)) { unset($this->chromo[$x][$spot-1]);  
 				//Otherwise we must remove the element at $spot and its successor. 
 				} else { unset($this->chromo[$x][$spot+1]); }
 				unset($this->chromo[$x][$spot]); 
 				} 
-				else 
-				{ break; }
 			break;
 			//Add elements to the gene
 			//We only add elements if the gene is currently less than the max representation size. 
 			case 1: if($this->chromo[$x] <= $this->rep) {
-				//We must add both a operation and a number, this are added to the end of the array.
+				//We must add both a operation and a number, these are added to the end of the array.
 				$this->chromo[$x][sizeof($this->chromo[$x])-1] = $this->operations[rand(0,sizeof($this->operations)-1)];
 				$this->chromo[$x][sizeof($this->chromo[$x])-1] = $this->seed[rand(0,sizeof($this->seed)-2)];
 				} 
@@ -217,7 +215,7 @@ private $operations = array('+', '*', '-', '/');
 		
 		//Cycle through and crossover only the (number of chromosomes/3) best chromosomes.
 		for($i = 0; $i < ($this->numC/3); $i++) {
-			//Since the key is no longer in order to access it we used the php array pointer.
+			//Since the key's are no longer in order; to access the array we use the php array pointer.
 			$key = each($temp);
 			//We want the array key
 			$key = $key['key'];
