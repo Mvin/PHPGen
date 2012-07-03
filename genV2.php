@@ -52,10 +52,10 @@ private $operations = array('+', '*', '-', '/');
 		//The main loop of the algorithm, it runs for generation number of times.
 		for($x = 0; $x < $this->gen; $x++){
 			
-			//Cycle through each chromosome; calculate its fitness, mutate it, and recalculate its fitness.
+			//Cycle through each chromosome; mutate it, and recalculate its fitness.
 			for($i = 0; $i < sizeof($this->chromo); $i++) {
-				$this->fitness($i);
 				$this->mutate($i);
+				//Reset array keys, so when elements get taken away keys are not unordered. 
 				$this->chromo[$i] = array_values($this->chromo[$i]);
 				$this->fitness($i);
 				
