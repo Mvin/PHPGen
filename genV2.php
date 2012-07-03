@@ -1,5 +1,9 @@
 <?php
 
+//Author: Matthew Edward Vincent [mvin.net]
+//Date: 7/3/2012
+//License - Creative Commons and MIT License, feel free to use however you want that is not commerical.
+
 //Genetic [Class]
 //Provides all the methods to run this example
 //Constructor expects:  __construct(int, int, array(), int)
