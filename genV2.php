@@ -72,13 +72,27 @@ private $operations = array('+', '*', '-', '/');
 		}
 		
 		//Lets find the overall best fitness.
-		//Cycle through each chromosome, find its fitness, and keep track of the biggest. 
+		//call mostFit, to find the gene with the highest fitness.
+		$mostFit = $this->mostFit();
+		
+		//Lets print our results.
+		echo "Highest Fitness Achieved: <br />";
+		$this->printIt($mostFit);
+	}
+	
+	//mostFit() - return the most fit gene.
+	//returns int
+	//Returns the index of the gene with the highest fitness.
+	private function mostFit() {
+		//Set the initial biggest to zero, so we have to take the first fitness.
 		$mostFit = 0;
+		//Cycle through each gene and checks its fitness against mostFit.
+		//If the fitness is larger than the current fitness at mostFit, take it instead.
 		for($i = 0; $i < sizeof($this->chromo); $i++) {
 			$mostFit = ($this->fitness($i) > $this->fitness($mostFit)) ? $i : $mostFit;
 		}
-		echo "Highest Fitness Achieved: <br />";
-		$this->printIt($mostFit);
+		
+		return $mostFit;
 	}
 	
 	//populate(int) - Populate takes in an index and populates the gene array at that index.
