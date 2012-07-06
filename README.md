@@ -19,7 +19,7 @@ $test = new Genetic(10, 20, array(1,2,3), 10);
 * Call the run() method on the instance of the class.
 
 ```php
->$test->run();
+$test->run();
 ```
 
 * run() will echo results to the screen in the following format:
